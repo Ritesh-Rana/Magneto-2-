@@ -1,0 +1,26 @@
+<?php
+/**
+ *  @var \Ritesh\UiCompo\Block\Uicompo $block
+ */ 
+?>
+<div id="time" data-bind="scope:'time-ui-compo'">
+    <h2 data-bind="text: time">form block</h2>
+    <!-- ko template : getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "#time": {
+                "Magento_Ui/js/core/app":{
+                    "components":{
+                        "time-ui-compo":{
+                            "component" : "Ritesh_UiCompo/js/component",
+                            "time" : "<?= $block->getTime(); ?>",
+                            "config":{
+                                "template" : "Ritesh_UiCompo/time"
+                            }
+                        }
+                    }
+                }
+            }
+    }
+</script>
