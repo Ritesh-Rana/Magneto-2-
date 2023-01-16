@@ -5,6 +5,8 @@
                 template="Ritesh_UiCompo::script.phtml"/>
         <block class="Ritesh\UiCompo\Block\Uicompo" name="time.ui.compo"
                 template="Ritesh_UiCompo::time.phtml" />
+        <block class="Ritesh\UiCompo\Block\Uicompo" name="aka.ui.compo"
+                template="Ritesh_UiCompo::aka.phtml" after="page.wrapper"/>
     </referenceContainer>
     </body>
 </page>

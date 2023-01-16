@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
-    <route url="/V1/orders/:email" method="GET">
-        <service class="Ritesh\CustomerApi\Api\OrderRepositoryInterface" method="getByEmail"/>
+    <route url="/V1/API/:SKU" method="POST">
+        <service class="Ritesh\CustomerApi\Api\ProductRepoInterface" method="get"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>
