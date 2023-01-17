@@ -5,29 +5,14 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-use Magento\Framework\Filesystem;
-use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\Exception\FileSystemException;
-use Magento\Framework\Exception\LocalizedException;
 
-class CreateModule extends Command
+class CreateModule extends Command implements \Magento\Framework\ObjectManager\NoninterceptableInterface
 {
     const VENDORNAME='Vendor Name';
     const MODULENAME='Module Name';
-
-    protected $filesystem;
-    protected $newDir;
-
-    public function __construct(
-        FileSystem $filesystem
-    )
-    {
-        $this->filesystem=$filesystem;
-        $this->newDir=$filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);  
-        parent::__construct();  
-    }
     protected function configure()
     {
+        
 		$this->setName('create:module')
 			->setDescription('Create : Module --vendorName="" --moduleName="" ');
 
@@ -49,19 +34,44 @@ class CreateModule extends Command
     {
         $Nvendor=$input->getArgument(self::VENDORNAME);
         $Nmodule=$input->getArgument(self::MODULENAME);
+        
+        $mkdir='app/code/'.$Nvendor.'/'.$Nmodule.'/etc';
+        mkdir($mkdir,0775,true);
 
-        $path='app/code'.$Nvendor.'/'.$Nmodule;
-        $newDirectory = false;
+        $mxml=$mkdir.'/module.xml';
+        touch($mxml);
 
-        try {
-            $newDirectory = $this->newDir->create($path);
-        } catch (FileSystemException $e) {
-            throw new LocalizedException(
-                __('We can\'t create directory "%1"', $path)
-            );
-        }
-        $output->writeln($newDirectory);
+        $xml='<?xml version="1.0"?>
+    <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+        <module name="'.$Nvendor."_".$Nmodule.'" setup_version="0.0.1">
+        </module>
+    </config>';
+        $open=fopen($mxml,'a');
+        fwrite($open,$xml);
+        fclose($open);
 
+        $mkdir='app/code/'.$Nvendor.'/'.$Nmodule;
+        $registration=$mkdir.'/registration.php';
+        touch($registration);
+
+        $NameSpace=$Nvendor.'_'.$Nmodule;
+
+        $regis="<?php
+/*
+ * @package        Ritesh_Rana
+ * @author         Ritesh Rana
+ */
+
+\Magento\Framework\Component\ComponentRegistrar::register(
+    \Magento\Framework\Component\ComponentRegistrar::MODULE,
+    '$NameSpace',
+    __DIR__
+);
+";
+        $open=fopen($registration,'a');
+        fwrite($open,$regis);
+        fclose($open);
+        chmod($mkdir,0777);
         $output->writeln("Bingo ! Created new Module");
     }
 }
