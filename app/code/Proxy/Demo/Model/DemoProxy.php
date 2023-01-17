@@ -1,22 +1,25 @@
-<?php 
+<?php
 
 namespace Proxy\Demo\Model;
 
-class DemoProxy {
-
+class DemoProxy
+{
     protected $link;
     protected $status;
 
-    public function __construct(
-        \Magento\Catalog\Model\Product\Attribute\Source\Status $status,
-        \Magento\Catalog\Model\Product\Link $link
-    )
+    public function __construct()
     {
-        $this->link=$link;
-        $this->status=$status;
+        $this->heavy_oprations();
     }
 
-    public function demo(){
-        return true;
+    public function heavy_oprations()
+    {
+        $writer = new \Zend_Log_Writer_Stream(BP . '/var/log/custom.log');
+        $logger = new \Zend_Log();
+        $logger->addWriter($writer);
+        $logger->info('Your text message');
+
+        for ($i = 0; $i < 100; $i++) {
+        }
     }
 }
