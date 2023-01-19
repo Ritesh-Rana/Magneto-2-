@@ -38,7 +38,7 @@ class InsertCustomerDob
         
         foreach ($allCustomer as $customer) {
 
-            $insert = $this->CustomerData;
+            $insert = $this->CustomerData->create();
             $insert->addData([
                 'email' => $customer->getEmail(),
                 'dob' => $customer->getDob(),
