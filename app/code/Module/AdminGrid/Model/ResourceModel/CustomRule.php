@@ -1,9 +1,4 @@
 <?php
-/**
- * Module AdminGrid Resource Model
- * @package Module/AdminGrid
- */
-declare(strict_types=1);
 
 namespace Module\AdminGrid\Model\ResourceModel;
 
