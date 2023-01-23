@@ -53,6 +53,7 @@ return [
     'lock' => [
         'provider' => 'db',
         'config' => [
+
         ]
     ],
     'directories' => [
@@ -74,5 +75,6 @@ return [
         'config_webservice' => 1,
         'translate' => 1
     ],
+
     ]
 ];
