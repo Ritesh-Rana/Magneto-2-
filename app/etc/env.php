@@ -10,7 +10,6 @@ return [
         'consumers_wait_for_messages' => 1
     ],
     'crypt' => [
-        'key' => '277d1a266fe86cacfcb493d54e7287c4'
     ],
     'db' => [
         'table_prefix' => '',
@@ -54,7 +53,7 @@ return [
     'lock' => [
         'provider' => 'db',
         'config' => [
-            'prefix' => ''
+
         ]
     ],
     'directories' => [
@@ -76,10 +75,6 @@ return [
         'config_webservice' => 1,
         'translate' => 1
     ],
-    'downloadable_domains' => [
-        'magento2.com'
-    ],
-    'install' => [
-        'date' => 'Wed, 18 Jan 2023 05:40:30 +0000'
+
     ]
 ];
