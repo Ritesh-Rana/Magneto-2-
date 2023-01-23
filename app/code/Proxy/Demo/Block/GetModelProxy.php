@@ -13,11 +13,14 @@ class GetModelProxy extends Template{
     public function __construct(Context $context,DemoProxy $demoProxy, array $data=[])
     {
         $this->demoProxy=$demoProxy;
-        $this->demoProxy->heavy_oprations();
+
         parent::__construct($context, $data);
     }
 
     public function bloc(){
+
+//        $this->demoProxy->heavy_oprations();
+
         return 1;
     }
 }

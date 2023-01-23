@@ -17,9 +17,8 @@ class DemoProxy
         $writer = new \Zend_Log_Writer_Stream(BP . '/var/log/custom.log');
         $logger = new \Zend_Log();
         $logger->addWriter($writer);
-        $logger->info('Your text message');
-
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 10000; $i++) {
+            $logger->info('Your text message');
         }
     }
 }
