@@ -10,7 +10,7 @@ return [
         'consumers_wait_for_messages' => 1
     ],
     'crypt' => [
-        'key' => '483c5024b595d6e0e534d859a0c3287b'
+
     ],
     'db' => [
         'table_prefix' => '',
@@ -54,7 +54,6 @@ return [
     'lock' => [
         'provider' => 'db',
         'config' => [
-            'prefix' => null
         ]
     ],
     'directories' => [
@@ -76,7 +75,6 @@ return [
         'config_webservice' => 1,
         'translate' => 1
     ],
-    'install' => [
-        'date' => 'Mon, 23 Jan 2023 08:12:05 +0000'
+
     ]
 ];
