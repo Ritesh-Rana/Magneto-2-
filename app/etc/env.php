@@ -10,6 +10,7 @@ return [
         'consumers_wait_for_messages' => 1
     ],
     'crypt' => [
+
     ],
     'db' => [
         'table_prefix' => '',
@@ -53,7 +54,6 @@ return [
     'lock' => [
         'provider' => 'db',
         'config' => [
-
         ]
     ],
     'directories' => [

@@ -1,0 +1,35 @@
+type Query {
+    salesOrder (
+        id: Int @doc(description: "Id of the Sales Order")
+    ): SalesOrder @resolver(class: "Mode\\Gqmode\\Model\\Resolver\\SalesOrder") @doc(description: "The Sales Order query returns information about a Sales order")
+
+    customerAllOrder (
+        month: Int @doc(description: " month flag give 1 for true 0 for false ")
+        week: Int @doc(description: " week flag give 1 for true 0 for false ")
+    ): SalesOrderCollection @resolver(class: "Mode\\Gqmode\\Model\\Resolver\\CustomerOrder") @doc(description: "The Sales Order query returns information about customer all placed order")
+}
+
+type SalesOrder @doc(description: "Sales Order graphql gather Data of specific order information") {
+    increment_id: String @doc(description: "Increment Id of Sales Order")
+    customer_name: String @doc(description: "Customername of Sales Order")
+    grand_total: String @doc(description: "Grand total of Sales Order")
+    is_guest_customer : Boolean @doc(description: "Specifies if this otder was placed by Guest cusotmer")
+    address_array: [String] @doc(description: "Array of order address types. It can have the following values: city, postcode,state")
+}
+
+type SalesOrderCollection @doc(description: "Sales order item information") {
+    OrderRecords: [OrderRecord] @doc(description: "An array containing the all the CMS Page from Magento")
+}
+
+type OrderRecord @doc(description: "Sales Order graphql gather Data of specific order information") {
+    increment_id: String @doc(description: "Increment Id of Sales Order")
+    customer_name: String @doc(description: "Customername of Sales Order")
+    grand_total: String @doc(description: "Grand total of Sales Order")
+    created_at: String @doc(description: "Timestamp indicating when the order was placed")
+    shipping_method: String @doc(description: "Shipping method for order placed")
+    shipping_description: String @doc(description: "shipping_description for order placed")
+    shipping_amount: String @doc(description: "shipping_amount for order placed")
+    total_qty_ordered: String @doc(description: "total_qty_ordered for order placed")
+    state: String @doc(description: "state for order placed")
+    status: String @doc(description: "status for order placed")
+}
