@@ -50,7 +50,6 @@ return [
         'Magento_Quote' => 1,
         'Magento_SalesSequence' => 1,
         'Magento_CheckoutAgreementsGraphQl' => 1,
-        'Magento_CloudComponents' => 1,
         'Magento_MediaGalleryUi' => 1,
         'Magento_CatalogGraphQl' => 1,
         'Magento_CmsPageBuilderAnalytics' => 1,
@@ -326,18 +325,22 @@ return [
         'Magento_Wishlist' => 1,
         'Magento_WishlistAnalytics' => 1,
         'Magento_WishlistGraphQl' => 1,
+        'Algolia_AlgoliaSearch' => 1,
+        'Graphql_Assignment' => 1,
         'Mageplaza_Simpleshipping' => 1,
+        'Magepow_Core' => 1,
+        'Magepow_InfiniteScroll' => 1,
         'Mode_Gqmode' => 1,
         'Module_AdminGrid' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
         'Proxy_Demo' => 1,
-        'RLTSquare_DiscountFilter' => 1,
         'Ritesh_CreateModule' => 1,
         'Ritesh_CustomerApi' => 1,
         'Ritesh_New' => 1,
         'Ritesh_UiCompo' => 1,
-        'Sigma_CustomPaymentMethod' => 1,
-        'Temando_ShippingRemover' => 1
+        'Sigma_CustomPaymentMethod' => 0,
+        'Temando_ShippingRemover' => 1,
+        'WebShopApps_MatrixRate' => 1
     ]
 ];
