@@ -327,6 +327,7 @@ return [
         'Magento_WishlistAnalytics' => 1,
         'Magento_WishlistGraphQl' => 1,
         'Mageplaza_Simpleshipping' => 1,
+        'Mode_Gqmode' => 1,
         'Module_AdminGrid' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
