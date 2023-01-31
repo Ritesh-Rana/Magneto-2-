@@ -85,7 +85,7 @@ class CustomAttribute1 implements DataPatchInterface, PatchRevertableInterface
                 'type' => 'int',
                 'label' => 'unit of measure',
                 'input' => 'select',
-                'source' => \GraphQL\Assignment\Model\Config\Source\Options::class,
+                'option' => ['values' => ['ml', 'Ltr', 'gm' , 'kg']],
                 'default' => '',
                 'global' => ScopedAttributeInterface::SCOPE_STORE,
                 'visible' => true,

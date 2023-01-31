@@ -10,7 +10,8 @@
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "laminas/laminas-dependency-plugin": true,
-            "magento/*": true
+            "magento/*": true,
+            "cweagans/composer-patches": true
         },
         "preferred-install": "dist",
         "sort-packages": true
@@ -20,7 +21,8 @@
         "magento/composer-dependency-version-audit-plugin": "~0.1",
         "magento/composer-root-update-plugin": "~2.0",
         "magento/product-community-edition": "2.4.4",
-        "rltsquare/discountfilter": "^1.0"
+        "rltsquare/discountfilter": "^1.0",
+        "sparsh/magento-2-order-comments-extension": "*"
     },
     "autoload": {
         "exclude-from-classmap": [
