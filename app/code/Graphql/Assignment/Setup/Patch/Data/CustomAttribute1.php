@@ -79,13 +79,14 @@ class CustomAttribute1 implements DataPatchInterface, PatchRevertableInterface
 
         $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
 
-        $eavSetup->addAttribute(\Magento\Catalog\Model\Product::ENTITY,
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
             'unit_of_measure',
             [
                 'type' => 'int',
                 'label' => 'unit of measure',
                 'input' => 'select',
-                'option' => ['values' => ['ml', 'Ltr', 'gm' , 'kg']],
+                'option' => ['values' => ['ml', 'Ltr', 'gm', 'kg']],
                 'default' => '',
                 'global' => ScopedAttributeInterface::SCOPE_STORE,
                 'visible' => true,
@@ -96,7 +97,7 @@ class CustomAttribute1 implements DataPatchInterface, PatchRevertableInterface
                 'sort_order' => 80,
             ]
         );
-        
+
         $this->moduleDataSetup->getConnection()->endSetup();
     }
 

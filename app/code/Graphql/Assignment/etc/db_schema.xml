@@ -4,6 +4,12 @@
       <column xsi:type="varchar" name="order_comment" nullable="true" length="255" comment="entire order comment" />
    </table>
    <table name="sales_order_item" resource="default" engine="innodb">
-      <column xsi:type="varchar" name="product_order_comment" nullable="false" length="255" comment="product order comment" />
+      <column xsi:type="varchar" name="product_order_comment" nullable="true" length="255" comment="product order comment" />
+   </table>
+    <table name="quote" resource="default" engine="innodb">
+      <column xsi:type="varchar" name="order_comment" nullable="true" length="255" comment="entire order comment" />
+   </table>
+   <table name="quote_item" resource="default" engine="innodb">
+      <column xsi:type="varchar" name="product_order_comment" nullable="true" length="255" comment="product order comment" />
    </table>
 </schema>
