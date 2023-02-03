@@ -147,6 +147,7 @@ class CustomerOrder implements ResolverInterface
         } catch (NoSuchEntityException $e) {
             throw new GraphQlNoSuchEntityException(__($e->getMessage()), $e);
         }
+        print_r($salesOrder);
         return $salesOrder;
     }
 }
