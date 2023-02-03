@@ -1,0 +1,9 @@
+type Query {
+    updateCommentsAttributes (
+        id: String! @doc(description: "Id or Order number")
+    ): UpdateCommentsAttributesOutput @resolver(class: "Abc\\Def\\Model\\Resolver\\UpdateCommentsAttributes") @doc(description: "The Sales Order query returns information about a Sales order")
+}
+
+type UpdateCommentsAttributesOutput @doc(description: "Update Comments Attributes By Order Number Or Id") {
+    id: String @doc(description: "Order number or Id ")
+}
