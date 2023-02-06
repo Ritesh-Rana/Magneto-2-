@@ -45,3 +45,4 @@ class EditCommentsAttributes implements ResolverInterface
         return $args;
     }
 }
+
