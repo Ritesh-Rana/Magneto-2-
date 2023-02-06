@@ -325,8 +325,11 @@ return [
         'Magento_Wishlist' => 1,
         'Magento_WishlistAnalytics' => 1,
         'Magento_WishlistGraphQl' => 1,
-        'Graphql_Assignment' => 1,
-        'Mageplaza_Simpleshipping' => 1,
+        'Abc_Def' => 1,
+        'Algolia_AlgoliaSearch' => 0,
+        'GqRitesh_Assignment' => 1,
+        'Magepow_Core' => 1,
+        'Magepow_InfiniteScroll' => 1,
         'Mode_Gqmode' => 1,
         'Module_AdminGrid' => 1,
         'PayPal_Braintree' => 1,
@@ -337,6 +340,7 @@ return [
         'Ritesh_New' => 1,
         'Ritesh_UiCompo' => 1,
         'Sigma_CustomPaymentMethod' => 0,
-        'Temando_ShippingRemover' => 1
+        'Temando_ShippingRemover' => 1,
+        'WebShopApps_MatrixRate' => 1
     ]
 ];
