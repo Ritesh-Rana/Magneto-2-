@@ -23,5 +23,13 @@ $itemsCount = $quote->getItemsCount();
         $(document).on('click', '.primary', function() {
             $('#save').submit();
         })
+        setTimeout(function(){
+           var link=window.location.href;
+            hashlink = link.split('#');
+           if(hashlink[hashlink.length-1]==='shipping'){
+                var element = document.getElementById("save");
+                element.style.display='none';
+            }
+        },1000);
     });
 </script>

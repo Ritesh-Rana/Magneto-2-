@@ -79,22 +79,33 @@ class CustomAttribute1 implements DataPatchInterface, PatchRevertableInterface
 
         $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
 
+        $Options=\GqRitesh\Assignment\Model\Config\Source\Options::class;
+
         $eavSetup->addAttribute(
             \Magento\Catalog\Model\Product::ENTITY,
-            'unit_of_measure',
+            'unit_of_product',
             [
-                'type' => 'int',
-                'label' => 'unit of measure',
+                'group' => 'Unit of product',
+                'type' => 'varchar',
+                'backend' => '',
+                'frontend' => '',
+                'label' => 'Unit of Measure',
                 'input' => 'select',
-                'option' => ['values' => ['ml', 'Ltr', 'gm', 'kg']],
-                'default' => '',
-                'global' => ScopedAttributeInterface::SCOPE_STORE,
+                'class' => '',
+                'source' => $Options,
+                'global' => ScopedAttributeInterface::SCOPE_GLOBAL,
                 'visible' => true,
-                'used_in_product_listing' => true,
+                'required' => true,
                 'user_defined' => true,
-                'required' => false,
-                'group' => 'General',
-                'sort_order' => 80,
+                'default' => '',
+                'searchable' => false,
+                'filterable' => false,
+                'comparable' => false,
+                'is_used_in_grid' => true,
+                'visible_on_front' => true,
+                'used_in_product_listing' => true,
+                'is_html_allowed_on_front'   => true,
+                'unique' => false
             ]
         );
 

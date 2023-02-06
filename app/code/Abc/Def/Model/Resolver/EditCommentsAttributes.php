@@ -8,7 +8,7 @@ use Magento\Framework\GraphQl\Exception\GraphQlAuthorizationException;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 
-class UpdateCommentsAttributes implements ResolverInterface
+class EditCommentsAttributes implements ResolverInterface
 {
     
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
