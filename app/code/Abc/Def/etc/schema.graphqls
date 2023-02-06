@@ -1,9 +1,38 @@
 type Query {
     updateCommentsAttributes (
-        id: String! @doc(description: "Id or Order number")
+        id: Int! @doc(description: "Id or Order number")
+        entireOrderComment: String! @doc(description: "Pass Entire Order Comment")
     ): UpdateCommentsAttributesOutput @resolver(class: "Abc\\Def\\Model\\Resolver\\UpdateCommentsAttributes") @doc(description: "The Sales Order query returns information about a Sales order")
 }
 
 type UpdateCommentsAttributesOutput @doc(description: "Update Comments Attributes By Order Number Or Id") {
-    id: String @doc(description: "Order number or Id ")
+    id: Int @doc(description: "Order number or Id ")
+    entireOrderCommentUpdateFlag: String @doc(description: "Update Flag 1 or 0 for Entire Order Comment")
+    updatedComment: String @doc(description: "Updated Entire Order Comment")
+}
+
+type Query {
+    updateProductAttributes (
+        id: Int! @doc(description: "Pass Product Id")
+        sku: String! @doc(description: "Pass Sku of the product")
+        unit: String! @doc(description: " Change the unit of measure with this unit ")
+    ): UpdateProductAttributesOutput @resolver(class: "Abc\\Def\\Model\\Resolver\\UpdateProductAttributes") @doc(description: "some stuf ")
+}
+
+type UpdateProductAttributesOutput @doc(description: "Update Product Attributes By Product Id Or SKU") {
+    sku: Int @doc(description: "Product SKU ")
+    updatedUnit: String @doc(description: "Updated Unit of product")
+    flag: String @doc(description: "Flag is updated or not")
+}
+
+type Query {
+    updateCustomerAttributes (
+        email: String! @doc(description: "Pass email of customer")
+        companyName: String! @doc(description: " Change the company Name for given customer email ")
+    ): UpdateCustomerAttributesOutput @resolver(class: "Abc\\Def\\Model\\Resolver\\UpdateCustomerAttributes") @doc(description: " some stuf ")
+}
+
+type UpdateCustomerAttributesOutput @doc(description: "Update Customer Attributes By Email") {
+    updatedCompanyName: String @doc(description: "Updated company Name")
+    flag: String @doc(description: "Flag is updated or not")
 }
