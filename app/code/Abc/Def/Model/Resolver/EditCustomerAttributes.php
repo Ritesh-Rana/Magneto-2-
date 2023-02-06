@@ -13,9 +13,19 @@ class EditCustomerAttributes implements ResolverInterface
     
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        // if (false === $context->getExtensionAttributes()->getIsCustomer()) {
-        //     throw new GraphQlAuthorizationException(__('The current customer isn\'t authorized.'));
-        // }
-        return $args;
+        if (false === $context->getExtensionAttributes()->getIsCustomer()) {
+            throw new GraphQlAuthorizationException(__('The current customer isn\'t authorized.'));
+        }
+        
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $CustomerModel = $objectManager->create('Magento\Customer\Model\CustomerFactory')->create();
+        $CustomerModel->setWebsiteId(1);
+        $CustomerModel->loadByEmail($args['email']);
+        $CustomerModel->setCompanyNameCustome($args['companyName']);
+        if($CustomerModel->save()){
+            $args['updatedCompanyName']=$args['companyName'];
+            $args['flag']='true';
+            return $args;
+        }
     }
 }

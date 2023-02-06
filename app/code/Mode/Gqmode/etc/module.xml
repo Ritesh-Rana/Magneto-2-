@@ -4,7 +4,7 @@
     <module name="Mode_Gqmode">
         <sequence>
             <module name="Magento_Sales"/>
-            <module name="Magento_GraphQl"/>
+            <module name="Magento_GqRitesh"/>
         </sequence>
     </module>
 </config>

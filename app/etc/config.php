@@ -326,7 +326,7 @@ return [
         'Magento_WishlistAnalytics' => 1,
         'Magento_WishlistGraphQl' => 1,
         'Abc_Def' => 1,
-        'Algolia_AlgoliaSearch' => 1,
+        'Algolia_AlgoliaSearch' => 0,
         'GqRitesh_Assignment' => 1,
         'Magepow_Core' => 1,
         'Magepow_InfiniteScroll' => 1,

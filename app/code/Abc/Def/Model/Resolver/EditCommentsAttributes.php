@@ -13,9 +13,9 @@ class EditCommentsAttributes implements ResolverInterface
     
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        // if (false === $context->getExtensionAttributes()->getIsCustomer()) {
-        //     throw new GraphQlAuthorizationException(__('The current customer isn\'t authorized.'));
-        // }
+        if (false === $context->getExtensionAttributes()->getIsCustomer()) {
+            throw new GraphQlAuthorizationException(__('The current customer isn\'t authorized.'));
+        }
         $orderId =$args['id'];
         
         $Comment =$args['entireOrderComment'];
