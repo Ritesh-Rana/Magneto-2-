@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="http://dt0100.datatoolscloud.net.au/jquery19/jquery-1.9.1.js"></script>
+    <script src="http://dt0100.datatoolscloud.net.au/jquery19/ui/jquery.ui.core.js"></script>
+    <script src="http://dt0100.datatoolscloud.net.au/jquery19/ui/jquery.ui.widget.js"></script>
+    <script src="http://dt0100.datatoolscloud.net.au/jquery19/ui/jquery.ui.position.js"></script>
+    <script src="http://dt0100.datatoolscloud.net.au/jquery19/ui/jquery.ui.autocomplete.js"></script>
+    <script src="http://dt0100.datatoolscloud.net.au/jquery19/ui/jquery.ui.menu.js"></script>
+
+    <script>
+        console.log("datatool api here");
+        $(document).ready(function () {
+            var shouldSubmitForm = true;
+            $('[data-customer-information-form="true"]').submit(function (event) {
+                console.log(shouldSubmitForm);
+                if (shouldSubmitForm) {
+                    event.preventDefault();
+                    var AddressLine1 = $('#checkout_shipping_address_address1').val();
+                    var Locality = $('#checkout_shipping_address_city').val();
+                    var State = $('#checkout_shipping_address_province').val();
+                    var Postcode = $('#checkout_shipping_address_zip').val();
+                    $.ajax({
+                        url: "https://ddt0100.datatoolscloud.net.au/KleberWebService/DtKleberService.svc/ProcessQueryStringRequest",
+                        dataType: "jsonp",
+                        type: "GET",
+                        contentType: "application/json; charset=utf-8",
+                        data: {
+                            Method: "DataTools.Repair.Address.AuPaf.RepairAddress",
+                            AddressLine1: "" + AddressLine1,
+                            Locality: "" + Locality,
+                            State: "" + State,
+                            Postcode: "" + Postcode,
+                            RequestKey: "RK-416BA-23CB5-8E94A-C2357-14A15-34790-F59F4-4B9F8",
+                            OutputFormat: "json"
+                        },
+                        success: function (data) {
+                          if(data && data.DtResponse && data.DtResponse.Result){
+                            console.log("API success and has Response");
+                            $.map(data.DtResponse.Result, function (item) {
+                                console.log("FieldChanges : "+item.FieldChanges);
+                                if (item.DPID != '' && !item.FieldChanges) {
+                                    shouldSubmitForm = false;
+                                    $('[data-customer-information-form="true"]').submit();
+                                } else {
+                                  UAddressLine1 = item.AddressLine;
+                                  ULocality = item.Locality;
+                                  UState = item.State;
+                                  UPostcode = item.Postcode;
+                                  if(!document.getElementById('myModal')){
+                                    var myModal = $('<div id="myModal" style="display: block;"></div>').appendTo('body');
+                                    var myModalContainer = $('<div id="myModal-container" role="dialog" aria-modal="true" aria-label="Is the shipping address correct?"></div>').appendTo(myModal);
+                                    $('<div id="addressValidatorBox"><h2 class="mb-0">Is the shipping address correct?</h2></div>').appendTo(myModalContainer);
+                                    $('<span id="input-address"><span id="address_line"></span><br><span id="address_city"></span><br><span id="address_state"></span><br><span id="address_postcode"></span><br></span>').appendTo(myModalContainer);
+
+                                    var btnRow = $('<div class="btn-row"></div>').appendTo(myModalContainer);
+                                    var updateBtn = $('<button class="av_button" id="btn-update-address">Update address</button>').appendTo(btnRow);
+                                    var proceedBtn = $('<button class="av_button" id="btn-proceed-address">Proceed</button>').appendTo(btnRow);
+                                  }
+                                    var continueButton = document.getElementById('continue_button');
+                                    if(UAddressLine1!=''){
+                                    document.getElementById('address_line').innerHTML= UAddressLine1;
+                                    document.getElementById('address_city').innerHTML= ULocality;
+                                    document.getElementById('address_state').innerHTML= UState ;
+                                    document.getElementById('address_postcode').innerHTML= UPostcode;
+                                    console.log("UAddressLine1 "+UAddressLine1);
+                                    console.log("ULocality "+ ULocality);
+                                    console.log("UState "+ UState);
+                                    console.log("UPostcode "+ UPostcode);
+                                    }
+                                  else{
+                                    document.getElementById('address_line').innerHTML= AddressLine1;
+                                    document.getElementById('address_city').innerHTML= Locality;
+                                    document.getElementById('address_state').innerHTML= State ;
+                                    document.getElementById('address_postcode').innerHTML= Postcode;
+                                    console.log("Repaired address not found");
+                                  }
+                                  $('#myModal').show();
+                                    updateBtn.click(function () {
+                                        if (continueButton) {
+                                            $('#myModal').hide();
+                                          if(UAddressLine1!=''){
+                                            $('#checkout_shipping_address_address1').val(UAddressLine1);
+                                            $('#checkout_shipping_address_city').val( ULocality);
+                                            $('#checkout_shipping_address_province').val( UState);
+                                            $('#checkout_shipping_address_zip').val( UPostcode);
+                                            shouldSubmitForm = false;
+                                            document.getElementById('address_line').innerHTML= UAddressLine1;
+                                            document.getElementById('address_city').innerHTML= ULocality;
+                                            document.getElementById('address_state').innerHTML= UState ;
+                                            document.getElementById('address_postcode').innerHTML= UPostcode;
+                                          }
+                                          else{
+                                            console.log("repair and validation fails")
+                                            document.getElementById('address_line').innerHTML= $('#checkout_shipping_address_address1').val();
+                                            document.getElementById('address_city').innerHTML= $('#checkout_shipping_address_city').val();
+                                            document.getElementById('address_state').innerHTML= $('#checkout_shipping_address_province').val(); 
+                                            document.getElementById('address_postcode').innerHTML= $('#checkout_shipping_address_zip').val();
+                                            console.log($('#checkout_shipping_address_address1').val());
+                                          }
+                                            continueButton.removeAttribute('disabled');
+                                            continueButton.classList.remove('btn--loading');
+                                        }
+                                        
+                                    });
+                                    proceedBtn.click(function () {
+                                        $('#myModal').hide();
+                                        shouldSubmitForm = false;
+                                        console.log("proceed : " + shouldSubmitForm);
+                                        $('[data-customer-information-form="true"]').submit();
+                                    });
+                                }
+                            });
+                        }
+                          else{
+                            console.log("API success but no Response At all");
+                            if(!document.getElementById('myModal')){
+                                    var myModal = $('<div id="myModal" style="display: block;"></div>').appendTo('body');
+                                    var myModalContainer = $('<div id="myModal-container" role="dialog" aria-modal="true" aria-label="Is the shipping address correct?"></div>').appendTo(myModal);
+                                    $('<div id="addressValidatorBox"><h2 class="mb-0">Is the shipping address correct?</h2></div>').appendTo(myModalContainer);
+                                    $('<span id="input-address"><span id="address_line"></span><br><span id="address_city"></span><br><span id="address_state"></span><br><span id="address_postcode"></span><br></span>').appendTo(myModalContainer);
+
+                                    var btnRow = $('<div class="btn-row"></div>').appendTo(myModalContainer);
+                                    var updateBtn = $('<button class="av_button" id="btn-update-address">Update address</button>').appendTo(btnRow);
+                                    var proceedBtn = $('<button class="av_button" id="btn-proceed-address">Proceed</button>').appendTo(btnRow);
+                            }
+                                    var continueButton = document.getElementById('continue_button');
+                                    document.getElementById('address_line').innerHTML= AddressLine1;
+                                    document.getElementById('address_city').innerHTML= Locality;
+                                    document.getElementById('address_state').innerHTML= State ;
+                                    document.getElementById('address_postcode').innerHTML= Postcode;
+                                    $('#myModal').show();
+
+                                    updateBtn.click(function () {
+                                        if (continueButton) {
+                                            $('#myModal').hide(); 
+                                            document.getElementById('address_line').innerHTML= $('#checkout_shipping_address_address1').val();
+                                            document.getElementById('address_city').innerHTML= $('#checkout_shipping_address_city').val();
+                                            document.getElementById('address_state').innerHTML= $('#checkout_shipping_address_province').val(); 
+                                            document.getElementById('address_postcode').innerHTML= $('#checkout_shipping_address_zip').val();
+                                            console.log($('#checkout_shipping_address_address1').val());
+                                            continueButton.removeAttribute('disabled');
+                                            continueButton.classList.remove('btn--loading');
+                                        }
+                                        
+                                    });
+                                    proceedBtn.click(function () {
+                                        $('#myModal').hide();
+                                        shouldSubmitForm = false;
+                                        console.log("proceed : " + shouldSubmitForm);
+                                        $('[data-customer-information-form="true"]').submit();
+                                    });
+                          }
+                      }
+                    });
+                }
+            }),
+              $('#checkout_shipping_address_address1, #checkout_shipping_address_city, #checkout_shipping_address_province, #checkout_shipping_address_zip').change(function(){
+                  shouldSubmitForm = true;
+              })
+        });
+    </script>
+
+    <style>
+        #myModal>#myModal-container,
+        #addressValidatorBox,
+        .alert-warning,
+        button.av_button {
+            border-radius: 0px;
+        }
+
+        #myModal #myModal-container {
+            background-color: #FFFFFF;
+        }
+
+        #myModal-container,
+        #addressValidatorBox,
+        .btn-row>.av_button {
+            border-width: 0.5px;
+        }
+
+        #myModal-container {
+            z-index: 50;
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 0 20px 20px 20px;
+            border: 1px solid #888;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
+            text-align: center;
+        }
+
+        #addressValidatorBox {
+            border: 0;
+        }
+
+        #myModal-container,
+        #addressValidatorBox,
+        .av_button {
+            border-radius: 0px !important;
+        }
+
+        #addressValidatorBox {
+            background-color: #ffffff;
+            border-color: #000000;
+            color: #000000;
+        }
+
+        #addressValidatorBox {
+            border-radius: 10px;
+            color: #000;
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #addressValidatorBox h2,
+        p#loader-text,
+        span#input-address,
+        .av_button {
+            font-family: "gotham-book" !important;
+        }
+
+        #addressValidatorBox h2,
+        p#loader-text,
+        span#input-address {
+            color: #000000;
+        }
+
+        .btn-row {
+            margin-top: 10px;
+        }
+
+        .btn-row button.av_button,
+        div.option_btns>div.option_btns_text {
+            background-color: #ffffff;
+            border-color: #000000;
+            color: #000000;
+        }
+
+        .av_button {
+            border: 1px solid #000;
+            width: 215px;
+        }
+
+        #addressValidatorBox h2,
+        p#loader-text,
+        span#input-address,
+        .av_button {
+            font-family: "gotham-book" !important;
+        }
+
+        #myModal-container,
+        #addressValidatorBox,
+        .av_button {
+            border-radius: 0px !important;
+        }
+
+        .av_button {
+            background-color: #fff;
+            color: #000;
+            border: 2px solid #000;
+            border-radius: 10px;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 10px 0 10px;
+            cursor: pointer;
+            transition-duration: .4s;
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body></body>
+
+</html>
